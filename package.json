@@ -1,9 +1,0 @@
-{
-  "name": "mimamad-salman",
-  "version": "1.0.0",
-  "private": true,
-  "description": "A faithful single-page landing page built from supplied artwork.",
-  "scripts": {
-    "start": "node server.js"
-  }
-}
