@@ -413,80 +413,122 @@
       </div>
     </section>
 
-<!-- INTERACTIVE CI/CD PIPELINE SIMULATOR -->
+<!-- SERVER ROOM CHAOS & RESILIENCE SIMULATOR -->
     <section id="estimator" class="section-container">
       <div class="section-heading-bar">
         <div class="heading-meta">
-          <span class="section-counter">04 // SIMULATOR</span>
-          <h2 class="section-title">Live CI/CD Pipeline Simulator</h2>
+          <span class="section-counter">04 // INTERACTIVE DRILL</span>
+          <h2 class="section-title">Server Room Chaos Simulator</h2>
         </div>
+        <span class="terminal-quick-hint">Can you crash Salman's servers? Try your worst.</span>
       </div>
 
       <div class="glass-panel estimator-panel">
         <div class="estimator-grid">
-          <!-- Pipeline Controls & Triggers -->
+          <!-- Chaos Controls -->
           <div class="estimator-controls">
-            <div class="form-group" style="margin-bottom: 1.5rem;">
-              <label for="pipelineTrigger">Select Pipeline Trigger Event</label>
-              <select id="pipelineTrigger" style="width: 100%;">
-                <option value="push">git push origin main (Production Release)</option>
-                <option value="pr">Pull Request #42: Feature / Microservices Auth</option>
-                <option value="hotfix">Hotfix: Kernel Patch & Security Updates</option>
-              </select>
+            <h4 style="font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 0.5rem; color: #fff;">
+              Simulate Real-World Disasters
+            </h4>
+            <p style="font-size: 0.88rem; color: rgba(255,255,255,0.7); margin-bottom: 1.5rem;">
+              Hit these servers with sudden viral traffic or severed cables to test if the self-healing automated cluster can survive.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.5rem;">
+              <button class="btn-secondary-glass btn-block" id="btnViralTraffic" style="justify-content: flex-start; text-align: left;">
+                <i data-lucide="flame" style="color: var(--accent-amber);"></i>
+                <div>
+                  <strong>Send 500k Viral Visitors</strong>
+                  <div style="font-size: 0.72rem; color: rgba(255,255,255,0.5);">Huge traffic surge &amp; CPU heat spike</div>
+                </div>
+              </button>
+
+              <button class="btn-secondary-glass btn-block" id="btnKillServer" style="justify-content: flex-start; text-align: left;">
+                <i data-lucide="scissors" style="color: #ff5f56;"></i>
+                <div>
+                  <strong>Cut Cable / Crash a Server</strong>
+                  <div style="font-size: 0.72rem; color: rgba(255,255,255,0.5);">Kills a node instantly to test failover</div>
+                </div>
+              </button>
+
+              <button class="btn-primary-glow btn-block" id="btnAutoHeal" style="margin-top: 0.5rem;">
+                <i data-lucide="shield-check"></i>
+                <span>Trigger DevOps Auto-Heal &amp; Scale</span>
+              </button>
             </div>
 
-            <div class="form-group" style="margin-bottom: 1.5rem;">
-              <label for="deployTarget">Deployment Environment Target</label>
-              <select id="deployTarget" style="width: 100%;">
-                <option value="aws-k8s">AWS EKS Cluster (Multi-AZ Rolling)</option>
-                <option value="aws-ec2">AWS EC2 Container Host via Docker</option>
-              </select>
+            <div style="font-family: var(--font-mono); font-size: 0.75rem; color: rgba(255,255,255,0.5); display: flex; justify-content: space-between;">
+              <span>CLUSTER STATUS:</span>
+              <span id="chaosStatusText" style="color: var(--emerald-hire); font-weight: bold;">ALL SYSTEMS STABLE</span>
             </div>
-
-            <div class="switch-group" style="border-bottom: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 1.5rem;">
-              <label class="switch-label" for="securityScanToggle">
-                <span>Enforce DevSecOps Gates</span>
-                <span class="switch-sub">Block deployment if CVE vulnerability score &gt; 7.0</span>
-              </label>
-              <input type="checkbox" id="securityScanToggle" class="neon-toggle" checked />
-            </div>
-
-            <button class="btn-primary-glow btn-block" id="runPipelineBtn" style="cursor: pointer;">
-              <i data-lucide="play"></i>
-              <span>Trigger Deployment Run</span>
-            </button>
           </div>
 
-          <!-- Live Pipeline Execution Stages & Health -->
+          <!-- Live Server Blades Rack & Telemetry -->
           <div class="estimator-summary-card">
-            <span class="summary-pre">PIPELINE EXECUTION TELEMETRY</span>
-            
-            <div class="summary-metric-group">
-              <div class="metric-row">
-                <span class="lbl">1. Source Checkout &amp; Lint</span>
-                <span class="val" id="stage1Status" style="color: rgba(255,255,255,0.4);">IDLE</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
+              <span class="summary-pre" style="margin: 0;">LIVE INFRASTRUCTURE RACK</span>
+              <span class="sys-pulse" id="uptimeBadge">99.99% UPTIME</span>
+            </div>
+
+            <!-- Visual 4-Node Cluster Grid -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.5rem;" id="serverRack">
+              <!-- Node 1 -->
+              <div class="server-node glass-panel" id="node1" style="padding: 0.9rem; border-radius: 8px; border: 1px solid rgba(0, 255, 136, 0.3);">
+                <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.72rem; margin-bottom: 0.3rem;">
+                  <span>NODE-01 (K8s)</span>
+                  <span class="node-state" style="color: var(--emerald-hire);">HEALTHY</span>
+                </div>
+                <div style="font-size: 0.8rem; font-weight: bold; color: #fff; margin-bottom: 0.4rem;">CPU: <span class="node-cpu">22%</span></div>
+                <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;">
+                  <div class="node-bar" style="height: 100%; width: 22%; background: var(--emerald-hire); transition: width 0.3s, background 0.3s;"></div>
+                </div>
               </div>
-              <div class="metric-row">
-                <span class="lbl">2. Security &amp; Vulnerability Scan</span>
-                <span class="val" id="stage2Status" style="color: rgba(255,255,255,0.4);">IDLE</span>
+
+              <!-- Node 2 -->
+              <div class="server-node glass-panel" id="node2" style="padding: 0.9rem; border-radius: 8px; border: 1px solid rgba(0, 255, 136, 0.3);">
+                <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.72rem; margin-bottom: 0.3rem;">
+                  <span>NODE-02 (AWS)</span>
+                  <span class="node-state" style="color: var(--emerald-hire);">HEALTHY</span>
+                </div>
+                <div style="font-size: 0.8rem; font-weight: bold; color: #fff; margin-bottom: 0.4rem;">CPU: <span class="node-cpu">18%</span></div>
+                <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;">
+                  <div class="node-bar" style="height: 100%; width: 18%; background: var(--emerald-hire); transition: width 0.3s, background 0.3s;"></div>
+                </div>
               </div>
-              <div class="metric-row">
-                <span class="lbl">3. Docker Build &amp; Push to Registry</span>
-                <span class="val" id="stage3Status" style="color: rgba(255,255,255,0.4);">IDLE</span>
+
+              <!-- Node 3 -->
+              <div class="server-node glass-panel" id="node3" style="padding: 0.9rem; border-radius: 8px; border: 1px solid rgba(0, 255, 136, 0.3);">
+                <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.72rem; margin-bottom: 0.3rem;">
+                  <span>NODE-03 (Docker)</span>
+                  <span class="node-state" style="color: var(--emerald-hire);">HEALTHY</span>
+                </div>
+                <div style="font-size: 0.8rem; font-weight: bold; color: #fff; margin-bottom: 0.4rem;">CPU: <span class="node-cpu">26%</span></div>
+                <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;">
+                  <div class="node-bar" style="height: 100%; width: 26%; background: var(--emerald-hire); transition: width 0.3s, background 0.3s;"></div>
+                </div>
               </div>
-              <div class="metric-row">
-                <span class="lbl">4. Cluster Rolling Deployment</span>
-                <span class="val" id="stage4Status" style="color: rgba(255,255,255,0.4);">IDLE</span>
+
+              <!-- Node 4 (Standby) -->
+              <div class="server-node glass-panel" id="node4" style="padding: 0.9rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.72rem; margin-bottom: 0.3rem;">
+                  <span>NODE-04 (Auto-scale)</span>
+                  <span class="node-state" style="color: rgba(255,255,255,0.5);">STANDBY</span>
+                </div>
+                <div style="font-size: 0.8rem; font-weight: bold; color: #fff; margin-bottom: 0.4rem;">CPU: <span class="node-cpu">0%</span></div>
+                <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;">
+                  <div class="node-bar" style="height: 100%; width: 0%; background: var(--accent-orchid); transition: width 0.3s, background 0.3s;"></div>
+                </div>
               </div>
             </div>
 
-            <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 0.85rem; font-family: var(--font-mono); font-size: 0.78rem; border: 1px solid var(--glass-border); min-height: 48px; display: flex; align-items: center;" id="pipelineLog">
-              <span style="color: rgba(255,255,255,0.5);">Awaiting trigger event...</span>
+            <!-- Live Terminal Event Feed -->
+            <div style="background: rgba(0,0,0,0.35); border-radius: 8px; padding: 0.85rem; font-family: var(--font-mono); font-size: 0.78rem; border: 1px solid var(--glass-border); min-height: 45px; display: flex; align-items: center;" id="chaosLog">
+              <span style="color: var(--emerald-hire);">✓ Traffic steady at 1,200 req/s. Zero dropouts detected.</span>
             </div>
           </div>
         </div>
       </div>
-    </section>   
+    </section>
 
     <!-- INTERACTIVE BASH TERMINAL SANDBOX -->
     <section id="sandbox" class="section-container">
