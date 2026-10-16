@@ -1,108 +1,856 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#1a5140" />
-    <meta name="description" content="Muhammed Salman — DevOps Engineer Trainee." />
-    <title>Muhammed Salman — DevOps Engineer Trainee</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Staatliches&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
-  <body>
-    <header class="site-header" data-header>
-      <a class="wordmark" href="#home" aria-label="Muhammad Salman home"><span>MS</span><small>cloud notes</small></a>
-      <nav class="main-nav" aria-label="Primary navigation">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-        <a href="#education">Education</a>
-        <a href="#contact">Contact</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Muhammad Salman - DevOps Engineer Trainee Portfolio. Cloud Infrastructure, Kubernetes, Docker, Terraform & CI/CD automation." />
+  <title>Muhammad Salman — DevOps & Cloud Systems Architect</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons & Canvas Confetti -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-theme="neon-drift">
+
+  <!-- SVG Film Grain Filter Overlay -->
+  <svg class="svg-grain-filter" aria-hidden="true">
+    <filter id="noiseFilter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+      <feColorMatrix type="saturate" values="0" />
+    </filter>
+  </svg>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- Vertical Fluted Glass Backing & Ambient Bloom Arc -->
+  <div class="fluted-glass-backdrop" aria-hidden="true"></div>
+  <div class="ambient-chroma-bloom" id="ambientBloom" aria-hidden="true"></div>
+
+  <!-- Interactive 3D WebGL Canvas Layer -->
+  <canvas id="webgl-canvas" aria-hidden="true"></canvas>
+
+  <!-- Custom Magnetic Cursor (Desktop only) -->
+  <div class="custom-cursor" id="cursorDot" aria-hidden="true"></div>
+  <div class="custom-cursor-follower" id="cursorFollower" aria-hidden="true"></div>
+
+  <!-- Primary Site Header & Glass Navigation -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#hero" class="brand-logo" id="brandLogo" aria-label="Muhammad Salman - Home">
+        <span class="brand-sub">VOL. 03</span>
+        <span class="brand-title">SALMAN<span class="brand-dot">.</span>IO</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary Navigation">
+        <a href="#projects" class="nav-link">Work</a>
+        <a href="#skills" class="nav-link">Stack</a>
+        <a href="#experience" class="nav-link">Journey</a>
+        <a href="#estimator" class="nav-link">Estimator</a>
+        <a href="#sandbox" class="nav-link">Terminal</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </nav>
-      <button class="wind-control" type="button" data-wind-toggle aria-pressed="false"><span class="wind-icon" aria-hidden="true">✦</span><span data-wind-label>Ambient motion</span></button>
+
+      <div class="header-actions">
+        <button class="cmd-palette-btn" id="cmdPaletteTrigger" aria-label="Open Command Palette (Cmd+K)">
+          <i data-lucide="command"></i>
+          <span class="kbd-hint">⌘K</span>
+        </button>
+        <button class="icon-toggle-btn" id="audioToggle" aria-label="Toggle Synthesizer Sound FX">
+          <i data-lucide="volume-2" id="audioIcon"></i>
+        </button>
+        <a href="#contact" class="btn-primary-glow btn-sm hide-mobile">Hire Salman</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Viewport Layout -->
+  <main class="page-container">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-section">
+      <div class="hero-content">
+        <div class="badge-cluster">
+          <div class="status-badge" id="hireStatusBadge">
+            <span class="pulse-indicator"></span>
+            <span class="badge-text">AVAILABLE FOR HIRE</span>
+          </div>
+          <div class="telemetry-badge">
+            <i data-lucide="map-pin"></i>
+            <span>KODUVALLY, CALICUT (28°C OPTIMAL)</span>
+          </div>
+        </div>
+
+        <h1 class="hero-display-title">
+          <span class="title-sub">NEON DRIFT // ARCHITECTURE</span>
+          <span class="glitch-text" data-text="Muhammad Salman">Muhammad Salman</span>
+        </h1>
+
+        <div class="role-scroller-wrap">
+          <span class="role-prefix">Focus: </span>
+          <div class="role-cycler" id="roleCycler">
+            <span class="active">DevOps Engineer Trainee</span>
+            <span>AWS Cloud Architect</span>
+            <span>Kubernetes & Container Lead</span>
+            <span>CI/CD Pipeline Specialist</span>
+            <span>Infrastructure as Code Enthusiast</span>
+          </div>
+        </div>
+
+        <p class="hero-description">
+          Aspiring DevOps Engineer with hands-on experience in Linux, AWS, Docker, Kubernetes, Jenkins, Git/GitHub, Terraform, and automated deployment pipelines. Currently engineering scalable, reliable cloud architectures at Zoople Technologies.
+        </p>
+
+        <div class="hero-cta-group">
+          <button class="btn-primary-glow" id="openResumeModalBtn">
+            <i data-lucide="file-text"></i>
+            <span>Inspect Dossier</span>
+          </button>
+          <a href="#projects" class="btn-secondary-glass">
+            <i data-lucide="layers"></i>
+            <span>View Architecture</span>
+          </a>
+          <button class="btn-secondary-glass copy-btn" data-clipboard="salmanpkty@gmail.com" aria-label="Copy Email address">
+            <i data-lucide="copy"></i>
+            <span>Copy Email</span>
+          </button>
+        </div>
+
+        <!-- Live Metrics / Now Playing Bar -->
+        <div class="hero-hud-card">
+          <div class="hud-item visualizer-item">
+            <div class="synthwave-bars">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="hud-text">
+              <span class="hud-label">SYNTH MATRIX // NOW STREAMING</span>
+              <span class="hud-val">Perturbator — Neo-Tokyo Cyber Drift</span>
+            </div>
+          </div>
+          <div class="hud-sep"></div>
+          <div class="hud-item">
+            <i data-lucide="shield-check" class="hud-icon"></i>
+            <div class="hud-text">
+              <span class="hud-label">INFRA SLA TARGET</span>
+              <span class="hud-val">99.99% Cloud Resilience</span>
+            </div>
+          </div>
+          <div class="hud-sep"></div>
+          <div class="hud-item">
+            <i data-lucide="git-branch" class="hud-icon"></i>
+            <div class="hud-text">
+              <span class="hud-label">DEPLOYMENT CADENCE</span>
+              <span class="hud-val">Zero-Downtime Rolling</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE METRICS & /NOW OVERVIEW -->
+    <section class="section-container" id="metrics-now">
+      <div class="bento-grid-2">
+        <div class="glass-panel now-card">
+          <div class="panel-header">
+            <div class="panel-tag"><i data-lucide="clock"></i> DEREK SIVERS /NOW</div>
+            <span class="sys-pulse">ACTIVE SPRINT</span>
+          </div>
+          <h3>What I'm Engineered On Right Now</h3>
+          <ul class="now-list">
+            <li>
+              <strong>Zoople Technologies:</strong> Deep-diving into production Kubernetes workload management, helm packaging, and automated self-healing clusters.
+            </li>
+            <li>
+              <strong>Advanced Cloud Security:</strong> Integrating DevSecOps Trivy image scanners and SonarQube static code analysis directly inside Jenkins multibranch pipelines.
+            </li>
+            <li>
+              <strong>Terraform State Locking:</strong> Hardening AWS multi-region state persistence utilizing encrypted S3 backend buckets and DynamoDB mutex locks.
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass-panel heat-map-card">
+          <div class="panel-header">
+            <div class="panel-tag"><i data-lucide="activity"></i> COMMITS DENSITY</div>
+            <span class="sys-pulse">GITHUB / ACTIVE</span>
+          </div>
+          <div class="heatmap-header-info">
+            <span class="metric-big">482+</span>
+            <span class="metric-sub">Contributions in 2026 across Cloud, IaC & DevOps Repos</span>
+          </div>
+          <div class="github-heatmap-grid" id="githubHeatmap" aria-label="Commit contribution heatmap"></div>
+          <div class="heatmap-legend">
+            <span>Less</span>
+            <div class="legend-scale">
+              <span class="lvl-0"></span>
+              <span class="lvl-1"></span>
+              <span class="lvl-2"></span>
+              <span class="lvl-3"></span>
+              <span class="lvl-4"></span>
+            </div>
+            <span>More</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED PROJECTS SHOWCASE -->
+    <section id="projects" class="section-container">
+      <div class="section-heading-bar">
+        <div class="heading-meta">
+          <span class="section-counter">01 // PRODUCTION</span>
+          <h2 class="section-title">Architectural Showcases</h2>
+        </div>
+        <!-- Filter Pills -->
+        <div class="filter-pill-group" role="tablist">
+          <button class="filter-pill active" data-filter="all">All Modules</button>
+          <button class="filter-pill" data-filter="cicd">CI/CD & Jenkins</button>
+          <button class="filter-pill" data-filter="cloud">Cloud & IaC</button>
+          <button class="filter-pill" data-filter="k8s">Kubernetes</button>
+        </div>
+      </div>
+
+      <div class="projects-grid" id="projectsGrid">
+        <!-- Project 1 -->
+        <article class="project-card glass-panel" data-category="cicd">
+          <div class="card-glow-edge"></div>
+          <div class="project-meta-top">
+            <span class="proj-id">PRJ-01 // AUTOMATION</span>
+            <span class="status-indicator-live">PROD READY</span>
+          </div>
+          <h3 class="proj-title">Automated CI/CD Pipeline with Jenkins & Docker</h3>
+          <p class="proj-desc">
+            Complete end-to-end automated deployment pipeline using Jenkins, GitHub Webhooks, and Docker containerization on AWS EC2. Automatically runs linters, triggers automated container builds, pushes to Docker Hub, and executes zero-downtime rolling deploys.
+          </p>
+          <div class="tech-tag-row">
+            <span class="tech-tag">Jenkins</span>
+            <span class="tech-tag">Docker</span>
+            <span class="tech-tag">GitHub Webhooks</span>
+            <span class="tech-tag">AWS EC2</span>
+            <span class="tech-tag">Bash</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-card-link open-proj-modal" data-project="0">
+              <span>Inspect Architecture</span>
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card glass-panel" data-category="cloud">
+          <div class="card-glow-edge"></div>
+          <div class="project-meta-top">
+            <span class="proj-id">PRJ-02 // IAC</span>
+            <span class="status-indicator-live">PROD READY</span>
+          </div>
+          <h3 class="proj-title">Infrastructure Provisioning via Terraform & AWS</h3>
+          <p class="proj-desc">
+            Declarative IaC architecture provisioning custom VPC, multi-AZ public and private subnets, security group hierarchies, NAT gateways, and automated EC2 cluster provisioning with remote S3 state-locking.
+          </p>
+          <div class="tech-tag-row">
+            <span class="tech-tag">Terraform</span>
+            <span class="tech-tag">AWS VPC</span>
+            <span class="tech-tag">Multi-AZ</span>
+            <span class="tech-tag">Security Groups</span>
+            <span class="tech-tag">S3 Backend</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-card-link open-proj-modal" data-project="1">
+              <span>Inspect Architecture</span>
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card glass-panel" data-category="k8s">
+          <div class="card-glow-edge"></div>
+          <div class="project-meta-top">
+            <span class="proj-id">PRJ-03 // CLUSTERING</span>
+            <span class="status-indicator-live">PROD READY</span>
+          </div>
+          <h3 class="proj-title">Kubernetes Microservices Cluster & Health Monitoring</h3>
+          <p class="proj-desc">
+            Scalable microservices orchestration deployed on Kubernetes with automated rolling updates, liveness/readiness probes, persistent volume claims, Ingress controllers, and real-time pod metrics monitoring.
+          </p>
+          <div class="tech-tag-row">
+            <span class="tech-tag">Kubernetes</span>
+            <span class="tech-tag">Docker Compose</span>
+            <span class="tech-tag">Ingress</span>
+            <span class="tech-tag">Deployments</span>
+            <span class="tech-tag">Health Checks</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-card-link open-proj-modal" data-project="2">
+              <span>Inspect Architecture</span>
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- TECHNICAL SKILLS MATRIX -->
+    <section id="skills" class="section-container">
+      <div class="section-heading-bar">
+        <div class="heading-meta">
+          <span class="section-counter">02 // ARSENAL</span>
+          <h2 class="section-title">Technical Competencies</h2>
+        </div>
+      </div>
+
+      <div class="skills-category-grid">
+        <!-- Cat 1 -->
+        <div class="glass-panel skill-group-card">
+          <div class="skill-icon-header">
+            <div class="skill-badge-icon"><i data-lucide="cloud"></i></div>
+            <h4>Cloud & DevOps</h4>
+          </div>
+          <ul class="skill-chip-list">
+            <li><span class="chip-name">AWS Infrastructure</span><span class="chip-lvl">EC2, VPC, S3, IAM</span></li>
+            <li><span class="chip-name">Terraform (IaC)</span><span class="chip-lvl">Declarative Infra</span></li>
+            <li><span class="chip-name">Cloud Networking</span><span class="chip-lvl">CIDR, Gateways, NAT</span></li>
+          </ul>
+        </div>
+
+        <!-- Cat 2 -->
+        <div class="glass-panel skill-group-card">
+          <div class="skill-icon-header">
+            <div class="skill-badge-icon"><i data-lucide="box"></i></div>
+            <h4>Containers & Orchestration</h4>
+          </div>
+          <ul class="skill-chip-list">
+            <li><span class="chip-name">Docker Engine</span><span class="chip-lvl">Multi-stage builds</span></li>
+            <li><span class="chip-name">Docker Compose</span><span class="chip-lvl">Microservices</span></li>
+            <li><span class="chip-name">Kubernetes</span><span class="chip-lvl">Pods, Services, Ingress</span></li>
+          </ul>
+        </div>
+
+        <!-- Cat 3 -->
+        <div class="glass-panel skill-group-card">
+          <div class="skill-icon-header">
+            <div class="skill-badge-icon"><i data-lucide="refresh-cw"></i></div>
+            <h4>CI/CD & Automation</h4>
+          </div>
+          <ul class="skill-chip-list">
+            <li><span class="chip-name">Jenkins</span><span class="chip-lvl">Pipelines as Code</span></li>
+            <li><span class="chip-name">GitHub Actions</span><span class="chip-lvl">Automated Workflows</span></li>
+            <li><span class="chip-name">Deployment Automation</span><span class="chip-lvl">Zero-Downtime</span></li>
+          </ul>
+        </div>
+
+        <!-- Cat 4 -->
+        <div class="glass-panel skill-group-card">
+          <div class="skill-icon-header">
+            <div class="skill-badge-icon"><i data-lucide="terminal"></i></div>
+            <h4>Systems & Scripting</h4>
+          </div>
+          <ul class="skill-chip-list">
+            <li><span class="chip-name">Linux Server Admin</span><span class="chip-lvl">Ubuntu, Alpine, RHEL</span></li>
+            <li><span class="chip-name">Shell Scripting</span><span class="chip-lvl">Bash / POSIX Automation</span></li>
+            <li><span class="chip-name">Git & GitHub</span><span class="chip-lvl">Branching, PRs, Webhooks</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE & EDUCATION TIMELINE -->
+    <section id="experience" class="section-container">
+      <div class="section-heading-bar">
+        <div class="heading-meta">
+          <span class="section-counter">03 // CHRONOLOGY</span>
+          <h2 class="section-title">Experience & Academic Path</h2>
+        </div>
+      </div>
+
+      <div class="timeline-container">
+        <!-- Item 1: Zoople -->
+        <div class="timeline-entry">
+          <div class="timeline-dot"><div class="dot-inner"></div></div>
+          <div class="timeline-card glass-panel">
+            <div class="timeline-header">
+              <span class="timeline-duration">JULY 2026 – PRESENT</span>
+              <span class="timeline-location"><i data-lucide="map-pin"></i> KOZHIKODE, KERALA</span>
+            </div>
+            <h3 class="role-title">DevOps Engineer Trainee</h3>
+            <h4 class="company-name">Zoople Technologies</h4>
+            <p class="role-desc">
+              Building automated, resilient cloud infrastructures and modern deployment workflows:
+            </p>
+            <ul class="role-bullets">
+              <li>Orchestrating containerized environments using Docker and Docker Compose for microservice isolation.</li>
+              <li>Deploying and configuring Kubernetes manifests, managing Pods, Services, and Ingress routing rules.</li>
+              <li>Architecting continuous integration and delivery (CI/CD) pipelines with Jenkins and GitHub Actions.</li>
+              <li>Writing modular Terraform code to automate AWS cloud infrastructure provisioning (VPC, Subnets, EC2).</li>
+              <li>Conducting Linux server administration, security hardening, user access delegation, and shell script automation.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Item 2: University of Calicut -->
+        <div class="timeline-entry">
+          <div class="timeline-dot"><div class="dot-inner"></div></div>
+          <div class="timeline-card glass-panel">
+            <div class="timeline-header">
+              <span class="timeline-duration">JUNE 2023 – MARCH 2026</span>
+              <span class="timeline-location"><i data-lucide="graduation-cap"></i> CALICUT, KERALA</span>
+            </div>
+            <h3 class="role-title">Bachelor of Science (B.Sc.) in Computer Science</h3>
+            <h4 class="company-name">University of Calicut</h4>
+            <p class="role-desc">
+              Rigorous foundation in computer science core principles, operating systems (Linux kernel mechanics), networking paradigms (TCP/IP, subnetting, DNS), distributed algorithms, and database management systems.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE DEVOPS COST & EFFORT ESTIMATOR -->
+    <section id="estimator" class="section-container">
+      <div class="section-heading-bar">
+        <div class="heading-meta">
+          <span class="section-counter">04 // SIMULATOR</span>
+          <h2 class="section-title">DevOps Project Effort & Cost Estimator</h2>
+        </div>
+      </div>
+
+      <div class="glass-panel estimator-panel">
+        <div class="estimator-grid">
+          <div class="estimator-controls">
+            <!-- Slider 1 -->
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <label for="infraRange">Infrastructure Complexity (AWS Services)</label>
+                <span class="slider-val" id="infraVal">3 Services</span>
+              </div>
+              <input type="range" id="infraRange" min="1" max="10" value="3" class="neon-slider" />
+              <div class="slider-scale-text"><span>Basic (VPC+EC2)</span><span>Enterprise Mesh</span></div>
+            </div>
+
+            <!-- Slider 2 -->
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <label for="pipelineRange">CI/CD Pipelines (Jenkins / Actions)</label>
+                <span class="slider-val" id="pipelineVal">2 Pipelines</span>
+              </div>
+              <input type="range" id="pipelineRange" min="1" max="8" value="2" class="neon-slider" />
+              <div class="slider-scale-text"><span>Single Build</span><span>Multi-branch Stage/Prod</span></div>
+            </div>
+
+            <!-- Slider 3 -->
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <label for="k8sNodes">Kubernetes Worker Nodes / Pods</label>
+                <span class="slider-val" id="k8sVal">5 Pods</span>
+              </div>
+              <input type="range" id="k8sNodes" min="0" max="30" value="5" class="neon-slider" />
+              <div class="slider-scale-text"><span>Standalone Docker</span><span>Autoscaling Cluster</span></div>
+            </div>
+
+            <!-- Toggle Monitoring -->
+            <div class="switch-group">
+              <label class="switch-label" for="monitorToggle">
+                <span>Include Observability (Prometheus, Grafana, Logs)</span>
+                <span class="switch-sub">Automated metric scrapers and alerts</span>
+              </label>
+              <input type="checkbox" id="monitorToggle" class="neon-toggle" checked />
+            </div>
+          </div>
+
+          <!-- Estimator Output Card -->
+          <div class="estimator-summary-card">
+            <span class="summary-pre">ESTIMATED EFFORT SPECIFICATION</span>
+            <div class="summary-metric-group">
+              <div class="metric-row">
+                <span class="lbl">Engineering Days</span>
+                <span class="val accent-neon" id="estDays">14 Days</span>
+              </div>
+              <div class="metric-row">
+                <span class="lbl">Recommended Architecture</span>
+                <span class="val" id="estArch">AWS + Docker + Jenkins CI</span>
+              </div>
+              <div class="metric-row">
+                <span class="lbl">Automation Level</span>
+                <span class="val" id="estAuto">92% Fully Scripted</span>
+              </div>
+              <div class="metric-row">
+                <span class="lbl">Estimated Monthly Cloud Tier</span>
+                <span class="val" id="estCost">$65 – $140 / mo</span>
+              </div>
+            </div>
+            <a href="#contact" class="btn-primary-glow btn-block" style="text-align: center; text-decoration: none;">Discuss This Architecture</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE BASH TERMINAL SANDBOX -->
+    <section id="sandbox" class="section-container">
+      <div class="section-heading-bar">
+        <div class="heading-meta">
+          <span class="section-counter">05 // CLI SANDBOX</span>
+          <h2 class="section-title">Interactive Terminal Engine</h2>
+        </div>
+        <span class="terminal-quick-hint">Try: <code>help</code>, <code>docker ps</code>, <code>kubectl get pods</code>, <code>terraform plan</code></span>
+      </div>
+
+      <div class="terminal-window glass-panel">
+        <div class="terminal-topbar">
+          <div class="terminal-dots">
+            <span class="tdot red"></span>
+            <span class="tdot yellow"></span>
+            <span class="tdot green"></span>
+          </div>
+          <div class="terminal-title">salman@neon-drift-bastion: ~ (bash 5.2.15)</div>
+          <div class="terminal-actions">
+            <button class="term-btn" id="termClearBtn" title="Clear terminal"><i data-lucide="trash-2"></i></button>
+          </div>
+        </div>
+        <div class="terminal-body" id="termOutput" tabindex="0" role="region" aria-label="Terminal stdout">
+          <div class="term-line welcome-line">
+            Welcome to Salman's Cloud Terminal v3.4.1-LTS (x86_64-pc-linux-gnu)<br />
+            Type <span class="highlight">help</span> to list all supported DevOps commands.
+          </div>
+        </div>
+        <div class="terminal-prompt-bar">
+          <span class="term-ps1">salman@aws-ec2:~$</span>
+          <input type="text" id="termInput" autocomplete="off" spellcheck="false" placeholder="Enter command..." aria-label="Terminal command prompt" />
+        </div>
+      </div>
+    </section>
+
+    <!-- DIRECT CONTACT & COMMUNICATION -->
+    <section id="contact" class="section-container">
+      <div class="section-heading-bar">
+        <div class="heading-meta">
+          <span class="section-counter">06 // TRANSMISSION</span>
+          <h2 class="section-title">Initiate Contact</h2>
+        </div>
+      </div>
+
+      <div class="bento-grid-2">
+        <!-- Direct Coordinates -->
+        <div class="glass-panel contact-details-panel">
+          <h3>Direct Channels</h3>
+          <p class="panel-intro-p">
+            Currently receptive to DevOps Trainee, Junior Cloud Engineer, or SRE opportunities. Reach out via email, phone, or instant messaging.
+          </p>
+
+          <div class="contact-links-list">
+            <div class="contact-tile">
+              <div class="tile-icon"><i data-lucide="mail"></i></div>
+              <div class="tile-info">
+                <span class="tile-label">Direct Email</span>
+                <a href="mailto:salmanpkty@gmail.com" class="tile-value">salmanpkty@gmail.com</a>
+              </div>
+              <button class="copy-btn-icon copy-btn" data-clipboard="salmanpkty@gmail.com" title="Copy Email">
+                <i data-lucide="copy"></i>
+              </button>
+            </div>
+
+            <div class="contact-tile">
+              <div class="tile-icon"><i data-lucide="phone"></i></div>
+              <div class="tile-info">
+                <span class="tile-label">Phone / WhatsApp</span>
+                <a href="tel:+918086566312" class="tile-value">+91 8086566312</a>
+              </div>
+              <button class="copy-btn-icon copy-btn" data-clipboard="+918086566312" title="Copy Phone">
+                <i data-lucide="copy"></i>
+              </button>
+            </div>
+
+            <div class="contact-tile">
+              <div class="tile-icon"><i data-lucide="linkedin"></i></div>
+              <div class="tile-info">
+                <span class="tile-label">LinkedIn Profile</span>
+                <a href="https://linkedin.com/in/salmanmuhammed" target="_blank" rel="noopener noreferrer" class="tile-value">linkedin.com/in/salmanmuhammed</a>
+              </div>
+              <a href="https://linkedin.com/in/salmanmuhammed" target="_blank" rel="noopener noreferrer" class="copy-btn-icon" title="Visit LinkedIn">
+                <i data-lucide="external-link"></i>
+              </a>
+            </div>
+
+            <div class="contact-tile">
+              <div class="tile-icon"><i data-lucide="map-pin"></i></div>
+              <div class="tile-info">
+                <span class="tile-label">Location Base</span>
+                <span class="tile-value">Koduvally, Kozhikode / Calicut, Kerala, India</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="glass-panel contact-form-panel">
+          <h3>Send Direct Message</h3>
+          <form id="contactForm" class="contact-form" novalidate>
+            <div class="form-group">
+              <label for="senderName">Your Name / Organization</label>
+              <input type="text" id="senderName" required placeholder="e.g. Linus Torvalds" />
+              <span class="error-msg" id="nameError">Name is required</span>
+            </div>
+
+            <div class="form-group">
+              <label for="senderEmail">Email Address</label>
+              <input type="email" id="senderEmail" required placeholder="recruiter@enterprise.com" />
+              <span class="error-msg" id="emailError">Enter a valid email</span>
+            </div>
+
+            <div class="form-group">
+              <label for="messageSubject">Role or Project Scope</label>
+              <select id="messageSubject">
+                <option value="Hiring: DevOps Trainee">Hiring: DevOps Trainee</option>
+                <option value="Hiring: Cloud / AWS Engineer">Hiring: Cloud / AWS Engineer</option>
+                <option value="Freelance Cloud Architecture">Freelance Cloud Automation</option>
+                <option value="Technical Networking">Technical Networking</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="senderMessage">Message</label>
+              <textarea id="senderMessage" rows="4" required placeholder="Describe your team, tech stack, or pipeline challenge..."></textarea>
+              <span class="error-msg" id="msgError">Message cannot be empty</span>
+            </div>
+
+            <button type="submit" class="btn-primary-glow btn-block" id="formSubmitBtn">
+              <i data-lucide="send"></i>
+              <span>Dispatch Message</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ATS FORMAL PRINT RESUME MARKUP (Hidden on screen, revealed via @media print) -->
+  <div class="print-resume-layout" id="printResume">
+    <header class="print-header">
+      <h1>MUHAMMAD SALMAN</h1>
+      <p class="print-subtitle">DevOps Engineer Trainee | Cloud Infrastructure & Automation</p>
+      <div class="print-contacts">
+        <span>Location: Koduvally, Calicut, Kerala, India</span> |
+        <span>Phone: +91 8086566312</span> |
+        <span>Email: salmanpkty@gmail.com</span> |
+        <span>LinkedIn: linkedin.com/in/salmanmuhammed</span>
+      </div>
     </header>
 
-    <main>
-      <section class="hero" id="home" aria-labelledby="hero-title">
-        <img class="hero-art" src="/manus-storage/download(2)_722fd226.jpg" alt="Jade Horizon abstract green design board with color palette, grid texture, and editorial typography" width="736" height="1308" fetchpriority="high" />
-        <div class="hero-wash" aria-hidden="true"></div>
-        <div class="glass-motes" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
-        <div class="glass-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-        <div class="hero-content hero-lockup">
-          <p class="hero-kicker">Cloud infrastructure · automation · reliable systems</p>
-          <h1 id="hero-title">MUHAMMED<br /><span>SALMAN</span></h1>
-          <p class="hero-role">DevOps Engineer Trainee</p>
+    <section class="print-section">
+      <h2>PROFESSIONAL SUMMARY</h2>
+      <p>
+        Aspiring DevOps Engineer with hands-on proficiency in Linux Server Administration, AWS Cloud Architecture, Docker, Kubernetes, Jenkins, Git/GitHub, Terraform, and CI/CD pipelines. Currently working as a DevOps Engineer Trainee at Zoople Technologies, building scalable, automated, and zero-downtime infrastructure.
+      </p>
+    </section>
+
+    <section class="print-section">
+      <h2>CORE SKILLS</h2>
+      <p><strong>Cloud & IaC:</strong> AWS (EC2, S3, VPC, IAM, Security Groups), Terraform</p>
+      <p><strong>Containers & Orchestration:</strong> Docker, Docker Compose, Kubernetes (Deployments, Services, Ingress)</p>
+      <p><strong>CI/CD & Automation:</strong> Jenkins (Declarative Pipelines), GitHub Actions, Automated Testing/Builds</p>
+      <p><strong>Operating Systems & Scripting:</strong> Linux Server Hardening, Bash Shell Scripting, Git, GitHub</p>
+    </section>
+
+    <section class="print-section">
+      <h2>WORK EXPERIENCE</h2>
+      <div class="print-item">
+        <div class="print-row">
+          <strong>Zoople Technologies — DevOps Engineer Trainee</strong>
+          <span>July 2026 – Present | Kozhikode, India</span>
         </div>
-        <a class="scroll-cue" href="#about"><span>Scroll to explore</span><i aria-hidden="true">↓</i></a>
-      </section>
+        <ul>
+          <li>Containerized multi-tier applications with Docker and managed microservice clusters via Kubernetes.</li>
+          <li>Engineered end-to-end CI/CD automation pipelines utilizing Jenkins and GitHub Actions with zero manual intervention.</li>
+          <li>Scripted Terraform configurations for automated AWS resource deployment across multiple Availability Zones.</li>
+          <li>Administered Linux server operations, hardening security perimeters, cron automations, and troubleshooting server issues.</li>
+        </ul>
+      </div>
+    </section>
 
-      <section class="story-section about-section" id="about" aria-labelledby="about-title">
-        <div class="section-marker">01 / the person behind the pipelines</div>
-        <div class="about-grid reveal">
-          <div>
-            <p class="eyebrow olive">A quiet introduction</p>
-            <h2 id="about-title">The person behind<br /><em>the pipelines</em></h2>
-          </div>
-          <div class="about-copy">
-            <p class="lead">Aspiring DevOps Engineer with hands-on experience in Linux, AWS, Docker, Kubernetes, Jenkins, Git/GitHub, Terraform, and CI/CD automation.</p>
-            <p>Currently working as a DevOps Engineer Trainee at Zoople Technologies, gaining practical experience in cloud infrastructure, containerization, deployment automation, and DevOps best practices.</p>
-            <p>Passionate about building scalable, reliable, and automated cloud environments. Currently expanding expertise in Kubernetes, Cloud Architecture, Monitoring, DevSecOps, and Site Reliability Engineering.</p>
-            <div class="about-meta"><span>Based in Kozhikode, Kerala, India</span><a href="mailto:salmanpkty@gmail.com">salmanpkty@gmail.com</a></div>
-          </div>
+    <section class="print-section">
+      <h2>EDUCATION</h2>
+      <div class="print-item">
+        <div class="print-row">
+          <strong>University of Calicut — Bachelor of Science in Computer Science (B.Sc.)</strong>
+          <span>June 2023 – March 2026</span>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="story-section skills-section paper-dark" id="skills" aria-labelledby="skills-title">
-        <div class="section-marker">02 / the tools of the trade</div>
-        <div class="section-heading reveal"><p class="eyebrow cream">A practical toolkit</p><h2 id="skills-title">Tools of<br /><em>the trade</em></h2><p class="heading-note">A growing field guide to the systems, platforms, and habits that keep reliable software moving.</p></div>
-        <div class="skills-grid reveal">
-          <article class="skill-cluster"><span class="cluster-number">01</span><h3>Cloud platforms</h3><p>AWS · EC2 · IAM · Security Groups</p></article>
-          <article class="skill-cluster"><span class="cluster-number">02</span><h3>Operating systems</h3><p>Linux Administration · Ubuntu</p></article>
-          <article class="skill-cluster"><span class="cluster-number">03</span><h3>Containers</h3><p>Docker · Docker Compose</p></article>
-          <article class="skill-cluster"><span class="cluster-number">04</span><h3>Orchestration</h3><p>Kubernetes · Service Management</p></article>
-          <article class="skill-cluster"><span class="cluster-number">05</span><h3>CI/CD tools</h3><p>Jenkins · GitHub Actions · Pipelines</p></article>
-          <article class="skill-cluster"><span class="cluster-number">06</span><h3>Version control</h3><p>Git · GitHub</p></article>
-          <article class="skill-cluster"><span class="cluster-number">07</span><h3>Infrastructure as code</h3><p>Terraform · Reusable Configuration</p></article>
-          <article class="skill-cluster"><span class="cluster-number">08</span><h3>Automation & scripting</h3><p>Shell Scripting · Cron Jobs</p></article>
-          <article class="skill-cluster skill-cluster-wide"><span class="cluster-number">09</span><h3>DevOps concepts</h3><p>Infrastructure as Code · Cloud Infrastructure · Deployment Automation · DevSecOps · SRE</p></article>
+    <section class="print-section">
+      <h2>KEY PROJECTS</h2>
+      <div class="print-item">
+        <strong>Automated CI/CD Pipeline with Jenkins & Docker:</strong> Integrated GitHub Webhooks to trigger automated container builds and zero-downtime deploys on AWS EC2.
+      </div>
+      <div class="print-item">
+        <strong>Infrastructure Provisioning using Terraform & AWS:</strong> Provisioned custom VPC, multi-AZ subnets, security groups, and automated EC2 setup via declarative IaC.
+      </div>
+      <div class="print-item">
+        <strong>Kubernetes Cluster Deployment & Monitoring:</strong> Configured multi-pod microservice scaling, Ingress rules, and health checks on Kubernetes.
+      </div>
+    </section>
+  </div>
+
+  <!-- FLOATING BOTTOM ERGONOMIC MOBILE DOCK -->
+  <aside class="floating-action-dock" aria-label="Quick Action Floating Bar">
+    <a href="https://wa.me/918086566312?text=Hi%20Salman,%20reviewed%20your%20DevOps%20portfolio" target="_blank" rel="noopener noreferrer" class="dock-btn" title="Chat on WhatsApp">
+      <i data-lucide="message-circle"></i>
+      <span>WhatsApp</span>
+    </a>
+    <a href="mailto:salmanpkty@gmail.com" class="dock-btn" title="Send Email">
+      <i data-lucide="mail"></i>
+      <span>Email</span>
+    </a>
+    <a href="tel:+918086566312" class="dock-btn" title="Direct Phone Call">
+      <i data-lucide="phone"></i>
+      <span>Call</span>
+    </a>
+    <button class="dock-btn" id="openChatAiBtn" title="Ask AI Twin">
+      <i data-lucide="bot"></i>
+      <span>AI Twin</span>
+    </button>
+  </aside>
+
+  <!-- INTERACTIVE RESUME MODAL & FORMAT SWITCHER -->
+  <div class="modal-backdrop" id="resumeModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card glass-panel modal-lg">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <i data-lucide="file-text" class="modal-icon"></i>
+          <h3>Candidate Dossier // Muhammad Salman</h3>
         </div>
-      </section>
-
-      <section class="story-section experience-section" id="experience" aria-labelledby="experience-title">
-        <div class="section-marker">03 / where the journey continues</div>
-        <div class="experience-layout reveal">
-          <div class="experience-intro"><p class="eyebrow olive">Present day</p><h2 id="experience-title">Where the journey<br /><em>continues</em></h2><div class="road-line" aria-hidden="true"><span></span><span></span><span></span></div></div>
-          <article class="experience-entry"><div class="entry-date">July 2026 — Present</div><h3>DevOps Engineer Trainee</h3><p class="entry-company">Zoople Technologies · Kozhikode, Kerala</p><ul><li>Learning and implementing modern DevOps practices.</li><li>Building Docker-based environments and working with Kubernetes orchestration.</li><li>Designing CI/CD pipelines using Jenkins and GitHub Actions.</li><li>Deploying AWS cloud infrastructure and managing Infrastructure as Code with Terraform.</li><li>Managing Linux servers, monitoring deployments, and writing shell scripts for automation tasks.</li></ul></article>
+        <div class="modal-header-actions">
+          <button class="btn-sm btn-secondary-glass" id="printResumeBtn" title="Trigger ATS Formal Print">
+            <i data-lucide="printer"></i>
+            <span>Print ATS</span>
+          </button>
+          <button class="modal-close-btn" id="closeResumeModalBtn" aria-label="Close modal">
+            <i data-lucide="x"></i>
+          </button>
         </div>
-      </section>
+      </div>
 
-      <section class="story-section projects-section paper-cream" id="projects" aria-labelledby="projects-title">
-        <div class="section-marker">04 / things I’ve built</div>
-        <div class="section-heading projects-heading reveal"><p class="eyebrow olive">Illustrative case notes</p><h2 id="projects-title">Things I’ve<br /><em>built</em></h2><p class="heading-note">Conceptual diagrams are clearly marked; real repository and deployment links can be added when available.</p></div>
-        <div class="projects-grid reveal">
-          <article class="project-card"><div class="project-top"><span class="project-index">01</span><span class="project-label">Containers</span></div><h3>Dockerized Movie Booking Application Deployment</h3><p>Containerized and deployed a Movie Booking application using Docker and Docker Compose in a Linux environment.</p><div class="diagram diagram-docker"><span>client</span><i>→</i><b>app container</b><i>→</i><span>service</span></div><div class="tag-row"><span>Docker</span><span>Compose</span><span>Linux</span><span>GitHub</span></div><ul class="highlights"><li>Multi-container setup</li><li>Portable deployment workflow</li></ul></article>
-          <article class="project-card"><div class="project-top"><span class="project-index">02</span><span class="project-label">Automation</span></div><h3>Jenkins CI/CD Pipeline Automation</h3><p>Built a CI/CD pipeline to automate application build, testing, and deployment processes.</p><div class="diagram diagram-pipeline"><span>GitHub</span><i>→</i><b>Jenkins</b><i>→</i><span>Deploy</span></div><div class="tag-row"><span>Jenkins</span><span>Docker</span><span>GitHub</span><span>Linux</span></div><ul class="highlights"><li>Automated build and deployment</li><li>Continuous integration workflow</li></ul></article>
-          <article class="project-card"><div class="project-top"><span class="project-index">03</span><span class="project-label">Cloud</span></div><h3>AWS Cloud Application Deployment</h3><p>Deployed and managed applications on EC2 with networking, security groups, and server configuration.</p><div class="diagram diagram-cloud"><span>client</span><i>→</i><b>EC2</b><small>security group</small></div><div class="tag-row"><span>AWS EC2</span><span>Linux</span><span>Security Groups</span><span>Git</span></div><ul class="highlights"><li>EC2 provisioning</li><li>Remote server management</li></ul></article>
-          <article class="project-card"><div class="project-top"><span class="project-index">04</span><span class="project-label">IaC</span></div><h3>Infrastructure Provisioning with Terraform</h3><p>Implemented Infrastructure as Code principles to automate cloud resource creation and management.</p><div class="diagram diagram-flow"><span>config</span><i>→</i><b>plan</b><i>→</i><span>apply</span></div><div class="tag-row"><span>Terraform</span><span>AWS</span><span>IaC</span></div><ul class="highlights"><li>Reusable configurations</li><li>Version-controlled infrastructure</li></ul></article>
-          <article class="project-card"><div class="project-top"><span class="project-index">05</span><span class="project-label">Orchestration</span></div><h3>Kubernetes Container Orchestration</h3><p>Deployed and managed containerized applications with a focus on scalability and orchestration concepts.</p><div class="diagram diagram-cluster"><span>cluster</span><b>pods · nodes · service</b></div><div class="tag-row"><span>Kubernetes</span><span>Docker</span><span>Linux</span></div><ul class="highlights"><li>Pod management</li><li>Scaling and service management</li></ul></article>
-          <article class="project-card"><div class="project-top"><span class="project-index">06</span><span class="project-label">Reliability</span></div><h3>Automated Backup with Shell & Cron</h3><p>Developed backup scripts and scheduled regular execution using Cron to support reliability.</p><div class="diagram diagram-flow"><span>cron</span><i>→</i><b>script</b><i>→</i><span>storage</span></div><div class="tag-row"><span>Linux</span><span>Shell</span><span>Cron</span></div><ul class="highlights"><li>Scheduled automation</li><li>System administration task</li></ul></article>
+      <div class="resume-role-filter">
+        <span>Tailor Profile View:</span>
+        <button class="role-filter-tab active" data-res-view="devops">DevOps & SRE</button>
+        <button class="role-filter-tab" data-res-view="cloud">Cloud Architect</button>
+        <button class="role-filter-tab" data-res-view="automation">CI/CD & Automation</button>
+      </div>
+
+      <div class="modal-body-scrollable">
+        <div class="dossier-dynamic-content" id="dossierBody">
+          <!-- Populated dynamically via JS according to selected view -->
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
 
-      <section class="story-section foundation-section" id="education" aria-labelledby="education-title">
-        <div class="section-marker">05 / the foundation</div>
-        <div class="foundation-layout reveal"><div class="book-mark" aria-hidden="true"><span></span><span></span></div><div><p class="eyebrow olive">A field of study</p><h2 id="education-title">The<br /><em>foundation</em></h2><p class="degree">Bachelor of Science (B.Sc.) in Computer Science</p><p class="university">University of Calicut <span>·</span> 2023 — 2026</p></div></div>
-      </section>
+  <!-- SPOTLIGHT COMMAND PALETTE (CMD+K) -->
+  <div class="modal-backdrop" id="cmdPaletteModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="cmd-palette-card glass-panel">
+      <div class="cmd-search-input-wrap">
+        <i data-lucide="search" class="cmd-icon"></i>
+        <input type="text" id="cmdInput" placeholder="Type a section, tool, or action..." autocomplete="off" />
+        <span class="cmd-esc-hint">ESC</span>
+      </div>
+      <div class="cmd-results-list" id="cmdResults">
+        <!-- Dynamically rendered items -->
+      </div>
+    </div>
+  </div>
 
-      <section class="objective-section" aria-labelledby="objective-title"><div class="objective-inner reveal"><p class="eyebrow cream">The next horizon</p><h2 id="objective-title">Building what<br /><em>comes next</em></h2><blockquote>“To build scalable, secure, and automated cloud infrastructure while continuously improving expertise in DevOps, Cloud Computing, Kubernetes, CI/CD, Infrastructure as Code, and Site Reliability Engineering.”</blockquote><a class="text-link light-link" href="#contact">Start a conversation <span>↗</span></a></div></section>
+  <!-- PROJECT DEEP-DIVE MODAL -->
+  <div class="modal-backdrop" id="projectModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card glass-panel">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <i data-lucide="layers" class="modal-icon"></i>
+          <h3 id="projModalTitle">Project Architecture</h3>
+        </div>
+        <button class="modal-close-btn" id="closeProjectModalBtn" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body-scrollable" id="projModalContent">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
 
-      <section class="story-section contact-section" id="contact" aria-labelledby="contact-title"><div class="section-marker">06 / let’s build something reliable</div><div class="contact-layout reveal"><div><p class="eyebrow olive">The last page is a beginning</p><h2 id="contact-title">Let’s build<br /><em>something reliable</em></h2><p class="contact-note">Open to DevOps Engineer, Cloud Engineer, Platform Engineer, and Site Reliability Engineer opportunities.</p></div><div class="contact-details"><div class="contact-row"><span>Location</span><strong>Kozhikode, Kerala, India</strong></div><div class="contact-row"><span>Email</span><a href="mailto:salmanpkty@gmail.com">salmanpkty@gmail.com</a><button class="copy-button" type="button" data-copy-email aria-label="Copy email address">Copy</button></div><div class="contact-row"><span>Phone</span><a href="tel:+918086566312">+91 8086566312</a></div><div class="contact-row"><span>LinkedIn</span><a href="https://www.linkedin.com/in/salmanmuhammed" target="_blank" rel="noreferrer">linkedin.com/in/salmanmuhammed ↗</a></div><p class="copy-feedback" data-copy-feedback role="status" aria-live="polite"></p></div></div></section>
-    </main>
+  <!-- "ASK MY AI TWIN" FLOATING CONVERSATIONAL WIDGET -->
+  <div class="ai-chat-drawer glass-panel" id="aiChatDrawer" aria-hidden="true">
+    <div class="ai-drawer-header">
+      <div class="ai-status-row">
+        <div class="ai-avatar-orb"></div>
+        <div>
+          <h4>Salman's AI Twin</h4>
+          <span class="ai-status-label">Online // Trained on Salman's Credentials</span>
+        </div>
+      </div>
+      <button class="modal-close-btn" id="closeAiChatBtn" aria-label="Close AI Chat"><i data-lucide="x"></i></button>
+    </div>
+    <div class="ai-messages-container" id="aiMessagesContainer">
+      <div class="ai-msg ai-bot">
+        Hello! I'm Salman's AI Digital Twin. Ask me anything about his hands-on experience at Zoople Technologies, AWS & Kubernetes skills, or project details!
+      </div>
+    </div>
+    <div class="ai-quick-questions">
+      <button class="ai-quick-btn" data-query="What tools does Salman use?">Tools?</button>
+      <button class="ai-quick-btn" data-query="Tell me about his Zoople experience">Zoople Experience?</button>
+      <button class="ai-quick-btn" data-query="Is he available for hire?">Availability?</button>
+    </div>
+    <form class="ai-input-bar" id="aiChatForm">
+      <input type="text" id="aiChatInput" placeholder="Ask Salman's AI twin..." autocomplete="off" />
+      <button type="submit" class="ai-submit-btn" aria-label="Submit AI question"><i data-lucide="arrow-right"></i></button>
+    </form>
+  </div>
 
-    <footer class="site-footer"><span>Designed with curiosity. Built with automation.</span><a href="#home">Back to the beginning ↑</a></footer>
-    <script src="/script.js" defer></script>
-  </body>
+  <!-- KONAMI CODE ARCADE MODAL -->
+  <div class="modal-backdrop" id="konamiModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card glass-panel arcade-modal">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <i data-lucide="terminal" class="modal-icon"></i>
+          <h3>EASTER EGG // DEVOPS CLUSTER DEFENSE</h3>
+        </div>
+        <button class="modal-close-btn" id="closeKonamiModalBtn"><i data-lucide="x"></i></button>
+      </div>
+      <div class="arcade-content">
+        <p class="arcade-sub">Konami protocol executed! All production clusters are currently 100% operational with 0 pod restarts.</p>
+        <div class="arcade-stats-row">
+          <div class="astat"><span class="k">POD RESILIENCE</span><span class="v">100%</span></div>
+          <div class="astat"><span class="k">NETWORK LATENCY</span><span class="v">1.4ms</span></div>
+          <div class="astat"><span class="k">SECURITY STATUS</span><span class="v">HARDENED</span></div>
+        </div>
+        <button class="btn-primary-glow btn-block" id="triggerConfettiAgain">Fire Confetti Thrusters</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-brand">MUHAMMAD SALMAN</span>
+        <span class="footer-copy">© 2026. Handcrafted with modern WebGL, Web Audio, and vanilla ES6+. All systems operational.</span>
+      </div>
+      <div class="footer-right">
+        <a href="#hero" class="back-to-top"><i data-lucide="arrow-up"></i> Top</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
 </html>
