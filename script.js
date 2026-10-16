@@ -447,57 +447,86 @@ document.addEventListener('DOMContentLoaded', () => {
       window.print();
     });
   }
+// --- INTERACTIVE CI/CD PIPELINE SIMULATOR ---
+  const runPipelineBtn = document.getElementById('runPipelineBtn');
+  const stage1Status = document.getElementById('stage1Status');
+  const stage2Status = document.getElementById('stage2Status');
+  const stage3Status = document.getElementById('stage3Status');
+  const stage4Status = document.getElementById('stage4Status');
+  const pipelineLog = document.getElementById('pipelineLog');
+  const pipelineTrigger = document.getElementById('pipelineTrigger');
+  const deployTarget = document.getElementById('deployTarget');
+  const securityScanToggle = document.getElementById('securityScanToggle');
 
-  // --- INTERACTIVE DEVOPS ESTIMATOR ENGINE ---
-  const infraRange = document.getElementById('infraRange');
-  const pipelineRange = document.getElementById('pipelineRange');
-  const k8sNodes = document.getElementById('k8sNodes');
-  const monitorToggle = document.getElementById('monitorToggle');
+  if (runPipelineBtn) {
+    runPipelineBtn.addEventListener('click', () => {
+      runPipelineBtn.disabled = true;
+      runPipelineBtn.style.opacity = '0.6';
 
-  const infraVal = document.getElementById('infraVal');
-  const pipelineVal = document.getElementById('pipelineVal');
-  const k8sVal = document.getElementById('k8sVal');
-  const estDays = document.getElementById('estDays');
-  const estArch = document.getElementById('estArch');
-  const estCost = document.getElementById('estCost');
+      const stages = [stage1Status, stage2Status, stage3Status, stage4Status];
+      stages.forEach(s => {
+        if (s) {
+          s.innerText = 'WAITING';
+          s.style.color = 'rgba(255,255,255,0.4)';
+        }
+      });
 
-  function calculateDevOpsEstimate() {
-    if (!infraRange) return;
-    const infra = parseInt(infraRange.value, 10);
-    const pipelines = parseInt(pipelineRange.value, 10);
-    const k8s = parseInt(k8sNodes.value, 10);
-    const monitoring = monitorToggle.checked;
+      const target = deployTarget ? deployTarget.value : 'cluster';
+      const secEnabled = securityScanToggle ? securityScanToggle.checked : true;
 
-    infraVal.innerText = `${infra} Services`;
-    pipelineVal.innerText = `${pipelines} Pipelines`;
-    k8sVal.innerText = `${k8s} Pods`;
+      // Stage 1: Checkout
+      stage1Status.innerText = 'RUNNING...';
+      stage1Status.style.color = 'var(--accent-amber)';
+      pipelineLog.innerHTML = '<span style="color: #ffbd2e;">[STAGE 1]</span> Fetching git tree & running Shellcheck linter...';
+      sfx.click();
 
-    // Formula calculation
-    let days = (infra * 2.2) + (pipelines * 2.5) + (k8s > 0 ? (k8s * 0.8 + 4) : 1);
-    if (monitoring) days += 3.5;
-    const finalDays = Math.round(days);
+      setTimeout(() => {
+        stage1Status.innerText = 'PASSED (0.4s)';
+        stage1Status.style.color = 'var(--emerald-hire)';
 
-    estDays.innerText = `${finalDays} Engineering Days`;
+        // Stage 2: Security Scan
+        stage2Status.innerText = 'RUNNING...';
+        stage2Status.style.color = 'var(--accent-amber)';
+        pipelineLog.innerHTML = secEnabled
+          ? '<span style="color: #ffbd2e;">[STAGE 2]</span> Trivy scanning Docker layers for CVE vulnerabilities...'
+          : '<span style="color: rgba(255,255,255,0.5);">[STAGE 2]</span> Security scans bypassed.';
 
-    let archTitle = "AWS EC2 + Docker Standalone";
-    let costEstimate = "$45 – $95 / mo";
+        setTimeout(() => {
+          stage2Status.innerText = 'PASSED (0 CVEs)';
+          stage2Status.style.color = 'var(--emerald-hire)';
 
-    if (k8s > 10 || infra > 6) {
-      archTitle = "AWS Multi-AZ + EKS Cluster + Jenkins";
-      costEstimate = "$180 – $340 / mo";
-    } else if (k8s > 0 || infra > 3) {
-      archTitle = "AWS VPC + K8s Nodes + Jenkins CI";
-      costEstimate = "$85 – $160 / mo";
-    }
+          // Stage 3: Docker Build
+          stage3Status.innerText = 'RUNNING...';
+          stage3Status.style.color = 'var(--accent-amber)';
+          pipelineLog.innerHTML = '<span style="color: #ffbd2e;">[STAGE 3]</span> Building multi-stage container & pushing tag :latest to registry...';
 
-    estArch.innerText = archTitle;
-    estCost.innerText = costEstimate;
+          setTimeout(() => {
+            stage3Status.innerText = 'PASSED (1.2s)';
+            stage3Status.style.color = 'var(--emerald-hire)';
+
+            // Stage 4: Rolling Deploy
+            stage4Status.innerText = 'DEPLOYING...';
+            stage4Status.style.color = 'var(--accent-orchid)';
+            pipelineLog.innerHTML = `<span style="color: #ffbd2e;">[STAGE 4]</span> Initiating rolling update on ${target}...`;
+
+            setTimeout(() => {
+              stage4Status.innerText = 'HEALTHY (100%)';
+              stage4Status.style.color = 'var(--emerald-hire)';
+              pipelineLog.innerHTML = '<span style="color: #00ff88;">[SUCCESS]</span> All pods healthy. Zero-downtime deployment finished.';
+              sfx.success();
+
+              if (window.confetti) {
+                window.confetti({ particleCount: 60, spread: 70, origin: { y: 0.7 } });
+              }
+
+              runPipelineBtn.disabled = false;
+              runPipelineBtn.style.opacity = '1';
+            }, 1000);
+          }, 900);
+        }, 800);
+      }, 700);
+    });
   }
-
-  [infraRange, pipelineRange, k8sNodes, monitorToggle].forEach(el => {
-    if (el) el.addEventListener('input', calculateDevOpsEstimate);
-  });
-  calculateDevOpsEstimate();
 
   // --- INTERACTIVE BASH TERMINAL ENGINE ---
   const termInput = document.getElementById('termInput');
