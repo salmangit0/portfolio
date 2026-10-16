@@ -447,87 +447,127 @@ document.addEventListener('DOMContentLoaded', () => {
       window.print();
     });
   }
-// --- INTERACTIVE CI/CD PIPELINE SIMULATOR ---
-  const runPipelineBtn = document.getElementById('runPipelineBtn');
-  const stage1Status = document.getElementById('stage1Status');
-  const stage2Status = document.getElementById('stage2Status');
-  const stage3Status = document.getElementById('stage3Status');
-  const stage4Status = document.getElementById('stage4Status');
-  const pipelineLog = document.getElementById('pipelineLog');
-  const pipelineTrigger = document.getElementById('pipelineTrigger');
-  const deployTarget = document.getElementById('deployTarget');
-  const securityScanToggle = document.getElementById('securityScanToggle');
+// --- SERVER ROOM CHAOS SIMULATOR ENGINE ---
+  const btnViralTraffic = document.getElementById('btnViralTraffic');
+  const btnKillServer = document.getElementById('btnKillServer');
+  const btnAutoHeal = document.getElementById('btnAutoHeal');
+  const chaosLog = document.getElementById('chaosLog');
+  const chaosStatusText = document.getElementById('chaosStatusText');
+  const uptimeBadge = document.getElementById('uptimeBadge');
 
-  if (runPipelineBtn) {
-    runPipelineBtn.addEventListener('click', () => {
-      runPipelineBtn.disabled = true;
-      runPipelineBtn.style.opacity = '0.6';
+  const nodes = [
+    { el: document.getElementById('node1'), name: 'NODE-01', cpu: 22, dead: false },
+    { el: document.getElementById('node2'), name: 'NODE-02', cpu: 18, dead: false },
+    { el: document.getElementById('node3'), name: 'NODE-03', cpu: 26, dead: false },
+    { el: document.getElementById('node4'), name: 'NODE-04', cpu: 0, dead: false, standby: true }
+  ];
 
-      const stages = [stage1Status, stage2Status, stage3Status, stage4Status];
-      stages.forEach(s => {
-        if (s) {
-          s.innerText = 'WAITING';
-          s.style.color = 'rgba(255,255,255,0.4)';
+  function updateNodeUI(node) {
+    if (!node.el) return;
+    const cpuText = node.el.querySelector('.node-cpu');
+    const stateText = node.el.querySelector('.node-state');
+    const bar = node.el.querySelector('.node-bar');
+
+    if (node.dead) {
+      node.el.style.borderColor = 'rgba(255, 95, 86, 0.7)';
+      stateText.innerText = 'OFFLINE (CRASHED)';
+      stateText.style.color = '#ff5f56';
+      cpuText.innerText = 'DEAD';
+      bar.style.width = '100%';
+      bar.style.background = '#ff5f56';
+    } else if (node.standby && node.cpu === 0) {
+      node.el.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+      stateText.innerText = 'STANDBY';
+      stateText.style.color = 'rgba(255,255,255,0.5)';
+      cpuText.innerText = '0%';
+      bar.style.width = '0%';
+    } else {
+      cpuText.innerText = `${node.cpu}%`;
+      bar.style.width = `${node.cpu}%`;
+
+      if (node.cpu > 80) {
+        node.el.style.borderColor = 'rgba(255, 85, 0, 0.8)';
+        stateText.innerText = 'OVERHEATING!';
+        stateText.style.color = 'var(--accent-amber)';
+        bar.style.background = 'var(--accent-amber)';
+      } else {
+        node.el.style.borderColor = 'rgba(0, 255, 136, 0.35)';
+        stateText.innerText = 'HEALTHY';
+        stateText.style.color = 'var(--emerald-hire)';
+        bar.style.background = 'var(--emerald-hire)';
+      }
+    }
+  }
+
+  // Action 1: Send Viral Traffic
+  if (btnViralTraffic) {
+    btnViralTraffic.addEventListener('click', () => {
+      sfx.hover();
+      nodes.forEach(n => {
+        if (!n.dead && !n.standby) {
+          n.cpu = Math.min(96, Math.floor(Math.random() * 15 + 85));
+          updateNodeUI(n);
         }
       });
-
-      const target = deployTarget ? deployTarget.value : 'cluster';
-      const secEnabled = securityScanToggle ? securityScanToggle.checked : true;
-
-      // Stage 1: Checkout
-      stage1Status.innerText = 'RUNNING...';
-      stage1Status.style.color = 'var(--accent-amber)';
-      pipelineLog.innerHTML = '<span style="color: #ffbd2e;">[STAGE 1]</span> Fetching git tree & running Shellcheck linter...';
-      sfx.click();
-
-      setTimeout(() => {
-        stage1Status.innerText = 'PASSED (0.4s)';
-        stage1Status.style.color = 'var(--emerald-hire)';
-
-        // Stage 2: Security Scan
-        stage2Status.innerText = 'RUNNING...';
-        stage2Status.style.color = 'var(--accent-amber)';
-        pipelineLog.innerHTML = secEnabled
-          ? '<span style="color: #ffbd2e;">[STAGE 2]</span> Trivy scanning Docker layers for CVE vulnerabilities...'
-          : '<span style="color: rgba(255,255,255,0.5);">[STAGE 2]</span> Security scans bypassed.';
-
-        setTimeout(() => {
-          stage2Status.innerText = 'PASSED (0 CVEs)';
-          stage2Status.style.color = 'var(--emerald-hire)';
-
-          // Stage 3: Docker Build
-          stage3Status.innerText = 'RUNNING...';
-          stage3Status.style.color = 'var(--accent-amber)';
-          pipelineLog.innerHTML = '<span style="color: #ffbd2e;">[STAGE 3]</span> Building multi-stage container & pushing tag :latest to registry...';
-
-          setTimeout(() => {
-            stage3Status.innerText = 'PASSED (1.2s)';
-            stage3Status.style.color = 'var(--emerald-hire)';
-
-            // Stage 4: Rolling Deploy
-            stage4Status.innerText = 'DEPLOYING...';
-            stage4Status.style.color = 'var(--accent-orchid)';
-            pipelineLog.innerHTML = `<span style="color: #ffbd2e;">[STAGE 4]</span> Initiating rolling update on ${target}...`;
-
-            setTimeout(() => {
-              stage4Status.innerText = 'HEALTHY (100%)';
-              stage4Status.style.color = 'var(--emerald-hire)';
-              pipelineLog.innerHTML = '<span style="color: #00ff88;">[SUCCESS]</span> All pods healthy. Zero-downtime deployment finished.';
-              sfx.success();
-
-              if (window.confetti) {
-                window.confetti({ particleCount: 60, spread: 70, origin: { y: 0.7 } });
-              }
-
-              runPipelineBtn.disabled = false;
-              runPipelineBtn.style.opacity = '1';
-            }, 1000);
-          }, 900);
-        }, 800);
-      }, 700);
+      chaosStatusText.innerText = 'CRITICAL OVERLOAD (92% CPU)';
+      chaosStatusText.style.color = 'var(--accent-amber)';
+      chaosLog.innerHTML = '<span style="color: var(--accent-amber);">⚠️ Traffic spiked to 500k req/s! Latency +140ms. Auto-scaler recommended!</span>';
+      showToast('⚠️ Viral spike triggered! Servers running hot.');
     });
   }
 
+  // Action 2: Cut Cable / Kill Node
+  if (btnKillServer) {
+    btnKillServer.addEventListener('click', () => {
+      sfx.click();
+      const livingNodes = nodes.filter(n => !n.dead && !n.standby);
+      if (livingNodes.length > 0) {
+        const victim = livingNodes[Math.floor(Math.random() * livingNodes.length)];
+        victim.dead = true;
+        updateNodeUI(victim);
+
+        chaosStatusText.innerText = `WARNING: ${victim.name} DROPPED`;
+        chaosStatusText.style.color = '#ff5f56';
+        chaosLog.innerHTML = `<span style="color: #ff5f56;">✖ ${victim.name} physical connection severed! Traffic rerouting via Ingress...</span>`;
+        showToast(`💥 ${victim.name} crashed! Failover routing traffic.`);
+      } else {
+        showToast('All primary nodes are already offline!');
+      }
+    });
+  }
+
+  // Action 3: DevOps Auto-Heal & Balance
+  if (btnAutoHeal) {
+    btnAutoHeal.addEventListener('click', () => {
+      sfx.success();
+      chaosLog.innerHTML = '<span style="color: var(--accent-orchid);">⚙️ Kubernetes spinning up replacement pods & balancing ingress load...</span>';
+      btnAutoHeal.disabled = true;
+
+      setTimeout(() => {
+        nodes.forEach(n => {
+          n.dead = false;
+          if (n.standby) {
+            n.standby = false;
+            n.cpu = 30; // 4th node now helps share the load
+          } else {
+            n.cpu = Math.floor(Math.random() * 10 + 25);
+          }
+          updateNodeUI(n);
+        });
+
+        chaosStatusText.innerText = 'ALL SYSTEMS STABLE & BALANCED';
+        chaosStatusText.style.color = 'var(--emerald-hire)';
+        chaosLog.innerHTML = '<span style="color: var(--emerald-hire);">✓ Cluster auto-healed. 4 nodes active, 0 downtime recorded.</span>';
+        uptimeBadge.innerText = '99.99% UPTIME';
+        showToast('🛡️ Auto-healed: Clean failover with zero downtime!');
+        btnAutoHeal.disabled = false;
+
+        if (window.confetti) {
+          window.confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+        }
+      }, 700);
+    });
+  }
   // --- INTERACTIVE BASH TERMINAL ENGINE ---
   const termInput = document.getElementById('termInput');
   const termOutput = document.getElementById('termOutput');
