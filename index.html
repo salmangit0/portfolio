@@ -413,84 +413,80 @@
       </div>
     </section>
 
-    <!-- INTERACTIVE DEVOPS COST & EFFORT ESTIMATOR -->
+<!-- INTERACTIVE CI/CD PIPELINE SIMULATOR -->
     <section id="estimator" class="section-container">
       <div class="section-heading-bar">
         <div class="heading-meta">
           <span class="section-counter">04 // SIMULATOR</span>
-          <h2 class="section-title">DevOps Project Effort & Cost Estimator</h2>
+          <h2 class="section-title">Live CI/CD Pipeline Simulator</h2>
         </div>
       </div>
 
       <div class="glass-panel estimator-panel">
         <div class="estimator-grid">
+          <!-- Pipeline Controls & Triggers -->
           <div class="estimator-controls">
-            <!-- Slider 1 -->
-            <div class="slider-group">
-              <div class="slider-label-row">
-                <label for="infraRange">Infrastructure Complexity (AWS Services)</label>
-                <span class="slider-val" id="infraVal">3 Services</span>
-              </div>
-              <input type="range" id="infraRange" min="1" max="10" value="3" class="neon-slider" />
-              <div class="slider-scale-text"><span>Basic (VPC+EC2)</span><span>Enterprise Mesh</span></div>
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+              <label for="pipelineTrigger">Select Pipeline Trigger Event</label>
+              <select id="pipelineTrigger" style="width: 100%;">
+                <option value="push">git push origin main (Production Release)</option>
+                <option value="pr">Pull Request #42: Feature / Microservices Auth</option>
+                <option value="hotfix">Hotfix: Kernel Patch & Security Updates</option>
+              </select>
             </div>
 
-            <!-- Slider 2 -->
-            <div class="slider-group">
-              <div class="slider-label-row">
-                <label for="pipelineRange">CI/CD Pipelines (Jenkins / Actions)</label>
-                <span class="slider-val" id="pipelineVal">2 Pipelines</span>
-              </div>
-              <input type="range" id="pipelineRange" min="1" max="8" value="2" class="neon-slider" />
-              <div class="slider-scale-text"><span>Single Build</span><span>Multi-branch Stage/Prod</span></div>
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+              <label for="deployTarget">Deployment Environment Target</label>
+              <select id="deployTarget" style="width: 100%;">
+                <option value="aws-k8s">AWS EKS Cluster (Multi-AZ Rolling)</option>
+                <option value="aws-ec2">AWS EC2 Container Host via Docker</option>
+              </select>
             </div>
 
-            <!-- Slider 3 -->
-            <div class="slider-group">
-              <div class="slider-label-row">
-                <label for="k8sNodes">Kubernetes Worker Nodes / Pods</label>
-                <span class="slider-val" id="k8sVal">5 Pods</span>
-              </div>
-              <input type="range" id="k8sNodes" min="0" max="30" value="5" class="neon-slider" />
-              <div class="slider-scale-text"><span>Standalone Docker</span><span>Autoscaling Cluster</span></div>
-            </div>
-
-            <!-- Toggle Monitoring -->
-            <div class="switch-group">
-              <label class="switch-label" for="monitorToggle">
-                <span>Include Observability (Prometheus, Grafana, Logs)</span>
-                <span class="switch-sub">Automated metric scrapers and alerts</span>
+            <div class="switch-group" style="border-bottom: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 1.5rem;">
+              <label class="switch-label" for="securityScanToggle">
+                <span>Enforce DevSecOps Gates</span>
+                <span class="switch-sub">Block deployment if CVE vulnerability score &gt; 7.0</span>
               </label>
-              <input type="checkbox" id="monitorToggle" class="neon-toggle" checked />
+              <input type="checkbox" id="securityScanToggle" class="neon-toggle" checked />
             </div>
+
+            <button class="btn-primary-glow btn-block" id="runPipelineBtn" style="cursor: pointer;">
+              <i data-lucide="play"></i>
+              <span>Trigger Deployment Run</span>
+            </button>
           </div>
 
-          <!-- Estimator Output Card -->
+          <!-- Live Pipeline Execution Stages & Health -->
           <div class="estimator-summary-card">
-            <span class="summary-pre">ESTIMATED EFFORT SPECIFICATION</span>
+            <span class="summary-pre">PIPELINE EXECUTION TELEMETRY</span>
+            
             <div class="summary-metric-group">
               <div class="metric-row">
-                <span class="lbl">Engineering Days</span>
-                <span class="val accent-neon" id="estDays">14 Days</span>
+                <span class="lbl">1. Source Checkout &amp; Lint</span>
+                <span class="val" id="stage1Status" style="color: rgba(255,255,255,0.4);">IDLE</span>
               </div>
               <div class="metric-row">
-                <span class="lbl">Recommended Architecture</span>
-                <span class="val" id="estArch">AWS + Docker + Jenkins CI</span>
+                <span class="lbl">2. Security &amp; Vulnerability Scan</span>
+                <span class="val" id="stage2Status" style="color: rgba(255,255,255,0.4);">IDLE</span>
               </div>
               <div class="metric-row">
-                <span class="lbl">Automation Level</span>
-                <span class="val" id="estAuto">92% Fully Scripted</span>
+                <span class="lbl">3. Docker Build &amp; Push to Registry</span>
+                <span class="val" id="stage3Status" style="color: rgba(255,255,255,0.4);">IDLE</span>
               </div>
               <div class="metric-row">
-                <span class="lbl">Estimated Monthly Cloud Tier</span>
-                <span class="val" id="estCost">$65 – $140 / mo</span>
+                <span class="lbl">4. Cluster Rolling Deployment</span>
+                <span class="val" id="stage4Status" style="color: rgba(255,255,255,0.4);">IDLE</span>
               </div>
             </div>
-            <a href="#contact" class="btn-primary-glow btn-block" style="text-align: center; text-decoration: none;">Discuss This Architecture</a>
+
+            <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 0.85rem; font-family: var(--font-mono); font-size: 0.78rem; border: 1px solid var(--glass-border); min-height: 48px; display: flex; align-items: center;" id="pipelineLog">
+              <span style="color: rgba(255,255,255,0.5);">Awaiting trigger event...</span>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </section>   
 
     <!-- INTERACTIVE BASH TERMINAL SANDBOX -->
     <section id="sandbox" class="section-container">
