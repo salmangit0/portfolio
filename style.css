@@ -486,15 +486,19 @@ body {
   margin-bottom: 0.4rem;
 }
 
+/* Updated Responsive Hero Title: No Truncation on Mobile */
 .glitch-text {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-size: clamp(2rem, 6.5vw, 5.5rem);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.15;
   letter-spacing: -0.02em;
   background: linear-gradient(135deg, #ffffff 30%, #f6a5dc 65%, var(--accent-amber) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  white-space: normal;
 }
 
 .role-scroller-wrap {
@@ -1037,7 +1041,7 @@ body {
 }
 
 /* ==========================================================================
-   DEVOPS PROJECT ESTIMATOR
+   DEVOPS PROJECT / DRILL PANEL
    ========================================================================== */
 
 .estimator-panel {
@@ -1992,6 +1996,16 @@ body {
   }
   .hide-mobile {
     display: none !important;
+  }
+  .page-container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  /* Explicit mobile phone font scaling for the hero title */
+  .glitch-text {
+    font-size: clamp(1.85rem, 8vw, 2.6rem);
+    line-height: 1.15;
+    word-break: keep-all;
   }
   .bento-grid-2 {
     grid-template-columns: 1fr;
